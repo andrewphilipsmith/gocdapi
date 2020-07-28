@@ -70,7 +70,8 @@ class Admin(GoBase):
         """
         url = self.build_url('config.xml')
         data = {'xmlFile': xml_data, 'md5': md5}
-        self.do_post(url, data=data)
+        header = {'Confirm': 'True'}
+        self.do_post(url, data=data, headers=header)
 
     def create_pipeline_group(self, group_name):
         """ Creates a pipeline group in the Go Server
