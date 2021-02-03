@@ -146,10 +146,16 @@ class Pipeline(GoBase):
         Save stages of pipeline found in the configuration in a container.
         Also sets the pipeline url.
         """
+        if not isinstance(self._data, dict):
+            self._data = self.load_json_data(self._data)
         self.__dict__.update(self._data)
-        self.set_self_url('go/api/pipelines/%s/' % self.name)
+        self.set_self_url('go/api/admin/pipelines/%s/' % self.name)
 
-        self.stages = []
-        for item in self._data['stages']:
-            stage = Stage(self.go_server, self, item)
-            self.stages.append(stage)
+        if 'stages' not in self._data:
+            self.repoll()
+        
+        if self._data['stages']:
+            self.stages = []
+            for item in self._data['stages']:
+                stage = Stage(self.go_server, self, item)
+                self.stages.append(stage)

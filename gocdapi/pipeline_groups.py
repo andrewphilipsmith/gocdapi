@@ -21,7 +21,7 @@ class PipelineGroups(dict, GoBase):
             go_server (Go): A Go object which this PipelineGroups belongs to.
         """
         dict.__init__(self)
-        GoBase.__init__(self, go_server, path='go/api/config/pipeline_groups/')
+        GoBase.__init__(self, go_server, path='go/api/admin/pipeline_groups/')
 
     def __getitem__(self, group_name):
         """Custom __getitem__ method
@@ -58,7 +58,7 @@ class PipelineGroups(dict, GoBase):
         The PipelineGroups's objects are saved as a pair (key,value) with their name as key.
         """
         data = self.load_json_data(self._data)
-        for item in data:
-
+        group_def = data['_embedded']['groups']
+        for item in group_def:
             pipeline_group = PipelineGroup(self.go_server, item)
             self[pipeline_group.name] = pipeline_group

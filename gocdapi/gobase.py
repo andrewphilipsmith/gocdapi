@@ -146,6 +146,8 @@ class GoBase(object):
         Returns:
             requests.Response: response from the get request
         """
+        if headers is None:
+            headers = {'Accept': 'application/vnd.go.cd+json'}
         response = requests.get(url, params=params, headers=headers)
         return GoBase.do_handle_response(response)
 
@@ -162,6 +164,8 @@ class GoBase(object):
         Returns:
             requests.Response: response from the get request
         """
+        if headers is None:
+            headers = {'Accept': 'application/vnd.go.cd+json'}        
         response = requests.post(url, params=params, data=data, headers=headers)
         return GoBase.do_handle_response(response).text
 
@@ -178,6 +182,8 @@ class GoBase(object):
         Returns:
             requests.Response: response from the get request
         """
+        if headers is None:
+            headers = {'Accept': 'application/vnd.go.cd+json'}
         response = requests.patch(url, params=params, data=data, headers=headers)
         return GoBase.do_handle_response(response).json
 
@@ -193,6 +199,8 @@ class GoBase(object):
         Returns:
             requests.Response: response from the get request
         """
+        if headers is None:
+            headers = {'Accept': 'application/vnd.go.cd+json'}        
         response = requests.patch(url, params=params, headers=headers)
         return GoBase.do_handle_response(response).json
 
